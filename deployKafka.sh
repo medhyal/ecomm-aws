@@ -4,6 +4,11 @@ function prop {
     grep "${1}" ~/ecomm-aws/envprop.properties|cut -d'=' -f2
 }
 
+cd ~/
+
+rm -rf ~/ecomm-kafka
+git clone https://github.com/medhyal/ecomm-kafka.git
+
 cd ~/ecomm-kafka
 
 echo "Deploying Zookeeper..."
