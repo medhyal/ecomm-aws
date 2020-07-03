@@ -80,3 +80,4 @@ echo "Loading bashrc..."
 
 echo "All Installations complete!!"
 
+echo "$(tput bold)------------ BEFORE PROCEEDING TO NEXT STEP LOGOUT AND LOGIN AGAIN ---------------$(tput sgr0)"
