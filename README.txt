@@ -19,7 +19,7 @@ AdministratorAccess
 AmazonVPCFullAccess
 AmazonRoute53FullAccess
 
-2. Create EC2 instance (Amazon Linux) in AWS default VPC.
+2. Create EC2 instance using "Amazon Linux 2 AMI (HVM), SSD Volume Type - ami-09d95fab7fff3776c" in AWS default VPC.
 3. sudo yum -y update
 4. sudo yum -y install git
 5. git clone https://github.com/medhyal/ecomm-aws.git
