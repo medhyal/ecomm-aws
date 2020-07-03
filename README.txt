@@ -26,7 +26,7 @@ AmazonRoute53FullAccess
 6. cd ~/ecomm-aws
 7. chmod 755 *.sh
 8. ./ec2_vm_setup.sh
-9. cd ~/
+9. Logout and login again.
 10. . .bashrc
 11. aws configure
 12. Replace values specific to your AWS account and run below commands -
