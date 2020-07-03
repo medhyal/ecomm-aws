@@ -1,5 +1,5 @@
 ==========================================================
-Ecomm Deployment plan to AWS
+Ecomm Deployment plan for AWS
 ==========================================================
 
 1. Get all access from AWS root user:
