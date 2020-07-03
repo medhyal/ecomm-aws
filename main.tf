@@ -277,6 +277,7 @@ resource "aws_db_instance" "ecomm-db" {
   option_group_name    = "default:mysql-8-0"
   skip_final_snapshot  = true
   backup_retention_period = 1
+  depends_on = [aws_db_parameter_group.ecomm-rds]
 }
 
 
