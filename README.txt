@@ -26,22 +26,24 @@ AmazonRoute53FullAccess
 6. cd ~/ecomm-aws
 7. chmod 755 *.sh
 8. ./ec2_vm_setup.sh
-9. . .bashrc
-10. aws configure
-11. Run below commands
+9. cd ~/
+10. . .bashrc
+11. aws configure
+12. Replace values specific to your AWS account and run below commands -
 
    echo "defaultvpc=vpc-xxxxxxx" >> ~/ecomm-aws/envprop.properties
    echo "default-vpcip=xxx.x.x.x/16" >> ~/ecomm-aws/envprop.properties
    echo "defaultroute=rtb-xxxxxxx" >> ~/ecomm-aws/envprop.properties
    echo "s3name=xxxxxxxxx" >> ~/ecomm-aws/envprop.properties
    
-7. ./initAWSInfra.sh
-8. ./deployKubernetes.sh
+13. cd ~/ecomm-aws
+14. ./initAWSInfra.sh
+15. ./deployKubernetes.sh
    Check if cluster is up:
-   kops --name dev.ecomm.com --state s3://k8s.msr.ecomm.com validate cluster
+   cd ~/ecomm-aws/ && kops --name $(terraform output domain-name) --state $(terraform output s3bucket-str) validate cluster
    
-9. ./deployKafka.sh
-10. ./deployApps.sh
+16. ./deployKafka.sh
+17. ./deployApps.sh
 
 
 ==========================================================
@@ -98,5 +100,3 @@ Check application logs in pods
  OR
 1. kubectl get pods -o wide
 2. kubectl logs ecomm-catalog-xxxxxxx-xxxxxx
-
-
