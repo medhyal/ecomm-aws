@@ -229,7 +229,7 @@ resource "aws_security_group" "deb-connector-sg" {
 resource "aws_security_group" "mysql-rds-sg" {
   name        = "mysql-rds-sg"
   description = "Allow 3306 port"
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = aws_default_vpc.vpc-def.id
 
   ingress {
     description = "3306 port"
