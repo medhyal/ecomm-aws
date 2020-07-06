@@ -223,6 +223,23 @@ resource "aws_security_group" "deb-connector-sg" {
   }
 }
 
+resource "aws_security_group" "mysql-rds-sg" {
+  name        = "mysql-rds-sg"
+  description = "Allow 3306 port"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    description = "3306 port"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name        = "ecomm-mysql-rds-sg"
+  }
+}
+
 
 ################### ECR ############################
 resource "aws_ecr_repository" "ecomm-catalog-ecr" {
@@ -277,6 +294,7 @@ resource "aws_db_instance" "ecomm-db" {
   option_group_name    = "default:mysql-8-0"
   skip_final_snapshot  = true
   backup_retention_period = 1
+  vpc_security_group_ids = [aws_security_group.mysql-rds-sg.id]
   depends_on = [aws_db_parameter_group.ecomm-rds]
 }
 
