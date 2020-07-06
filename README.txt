@@ -31,9 +31,6 @@ AmazonRoute53FullAccess
 11. aws configure
 12. Replace values specific to your AWS account and run below commands (Do not create S3, just specify name) -
 
-   echo "defaultvpc=vpc-xxxxxxx" >> ~/ecomm-aws/envprop.properties
-   echo "default-vpcip=xxx.x.x.x/16" >> ~/ecomm-aws/envprop.properties
-   echo "defaultroute=rtb-xxxxxxx" >> ~/ecomm-aws/envprop.properties
    echo "s3name=k8s.xxx.xxx.com" >> ~/ecomm-aws/envprop.properties
    
 13. cd ~/ecomm-aws
