@@ -12,9 +12,6 @@ provider "aws" { region="us-east-1"}
 variable "vpc_cidr_block" {default = "172.50.0.0/16"}
 variable "project_name" { default = "ecomm-dev"}
 variable "domain" { default = "ecomm.com"}
-variable "default-vpc" { default="__DEF_VPC__" }
-variable "default-vpc-ip" { default="__DEF_VPC_IP__" }
-variable "default-vpc-route_table_id" { default="__DEF_VPC_IP_ROUTE_ID__" }
 variable "domain-name" { default="dev.ecomm.com" }
 
 variable "networks-private" {
@@ -70,6 +67,12 @@ resource "aws_s3_bucket" "s3b" {
 }
 
 ########## VPC ##########
+resource "aws_default_vpc" "vpc-def" {
+  tags = {
+    Name = "Default VPC"
+  }
+}
+
 resource "aws_vpc" "vpc" {
   cidr_block = var.vpc_cidr_block
   enable_dns_support = true
@@ -83,7 +86,7 @@ resource "aws_vpc" "vpc" {
 ########## VPC PEER ##########
 resource "aws_vpc_peering_connection" "vpc-peer" {
   peer_vpc_id   = aws_vpc.vpc.id
-  vpc_id        = var.default-vpc
+  vpc_id        = aws_default_vpc.vpc-def.id
   auto_accept   = true
   accepter {
     allow_remote_vpc_dns_resolution = true
@@ -100,7 +103,7 @@ resource "aws_vpc_peering_connection" "vpc-peer" {
 resource "aws_route53_zone" "domain" {
   name = var.domain-name
   vpc {
-    vpc_id = var.default-vpc
+    vpc_id = aws_default_vpc.vpc-def.id
   }
 }
 
@@ -189,18 +192,18 @@ resource "aws_route_table_association" "route_table_pvt_association" {
 
 resource "aws_route" "vpc_pvt_to_def_vpc_route" {
   route_table_id            = aws_route_table.route_table_pvt.id
-  destination_cidr_block    = var.default-vpc-ip
+  destination_cidr_block    = aws_default_vpc.vpc-def.cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.vpc-peer.id
 }
 
 resource "aws_route" "vpc_pub_to_def_vpc_route" {
   route_table_id            = aws_route_table.route_table.id
-  destination_cidr_block    = var.default-vpc-ip
+  destination_cidr_block    = aws_default_vpc.vpc-def.cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.vpc-peer.id
 }
 
 resource "aws_route" "def_vpc_to_vpc_route" {
-  route_table_id            = var.default-vpc-route_table_id
+  route_table_id            = aws_default_vpc.vpc-def.main_route_table_id
   destination_cidr_block    = var.vpc_cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.vpc-peer.id
 }
