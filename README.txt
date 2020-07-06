@@ -29,7 +29,7 @@ AmazonRoute53FullAccess
 9. Logout and login again.
 10. . .bashrc
 11. aws configure
-12. Replace values specific to your AWS account and run below commands (Do not create S3, just specify name) -
+12. Specify some name for s3 below (eg: my.s3.store.com) -
 
    echo "s3name=k8s.xxx.xxx.com" >> ~/ecomm-aws/envprop.properties
    
