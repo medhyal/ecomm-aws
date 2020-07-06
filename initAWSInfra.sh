@@ -4,9 +4,6 @@ function prop {
     grep "${1}" ~/ecomm-aws/envprop.properties|cut -d'=' -f2
 }
 
-sed -i "s|__DEF_VPC__|$(prop defaultvpc)|g" ~/ecomm-aws/main.tf
-sed -i "s|__DEF_VPC_IP__|$(prop default-vpcip)|g" ~/ecomm-aws/main.tf
-sed -i "s|__DEF_VPC_IP_ROUTE_ID__|$(prop defaultroute)|g" ~/ecomm-aws/main.tf
 sed -i "s|__S3_NAME__|$(prop s3name)|g" ~/ecomm-aws/main.tf
 
 echo "Creating AWS Infra..."
